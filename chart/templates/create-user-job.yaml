@@ -36,7 +36,11 @@ metadata:
 {{ toYaml . | indent 4 }}
 {{- end }}
   annotations:
+    {{- if .Values.postgresql.enabled }}
     "helm.sh/hook": post-install
+    {{- else }}
+    "helm.sh/hook": pre-install
+    {{- end }}
     "helm.sh/hook-weight": "2"
     "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
 spec:
